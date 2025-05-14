@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bundle & Save</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .bundle-option {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .bundle-option.active {
+            border-color: #000;
+        }
+        
+        .bundle-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .bundle-title {
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .bundle-price {
+            font-size: 18px;
+        }
+        
+        .bundle-popular {
+            background-color: #f5f5f5;
+            color: #666;
+            font-size: 12px;
+            padding: 3px 8px;
+            border-radius: 10px;
+            margin-left: 10px;
+        }
+        
+        .bundle-savings {
+            color: green;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        .bundle-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .bundle-option.active .bundle-details {
+            max-height: 300px;
+            margin-top: 15px;
+        }
+        
+        .option-title {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        .size-options, .color-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .size-option, .color-option {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .size-option.selected, .color-option.selected {
+            border-color: #000;
+            background-color: #f5f5f5;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        
+        .total {
+            font-weight: bold;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 18px;
+        }
+        
+        .add-to-cart {
+            background-color: #000;
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+        
+        .powered-by {
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Bundle & Save</div>
+    
+    <div class="bundle-option" onclick="toggleBundle(this)">
+        <div class="bundle-header">
+            <div>
+                <span class="bundle-title">1 Pair</span>
+            </div>
+            <div class="bundle-price">DKK 195.00</div>
+        </div>
+        <div class="bundle-details">
+            <div class="option-title">Size</div>
+            <div class="size-options">
+                <div class="size-option" onclick="selectOption(event, this)">36</div>
+                <div class="size-option" onclick="selectOption(event, this)">37</div>
+                <div class="size-option" onclick="selectOption(event, this)">38</div>
+                <div class="size-option" onclick="selectOption(event, this)">39</div>
+                <div class="size-option" onclick="selectOption(event, this)">40</div>
+            </div>
+            <div class="option-title">Color</div>
+            <div class="color-options">
+                <div class="color-option" onclick="selectOption(event, this)">Black</div>
+                <div class="color-option" onclick="selectOption(event, this)">White</div>
+                <div class="color-option" onclick="selectOption(event, this)">Beige</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bundle-option active" onclick="toggleBundle(this)">
+        <div class="bundle-header">
+            <div>
+                <span class="bundle-title">2 Pair</span>
+                <span class="bundle-popular">Most Popular</span>
+            </div>
+            <div class="bundle-price">DKK 345.00</div>
+        </div>
+        <div class="bundle-savings">DKK 195.00 (40% OFF)</div>
+        <div class="bundle-details" style="max-height: 300px;">
+            <div class="option-title">Size</div>
+            <div class="size-options">
+                <div class="size-option" onclick="selectOption(event, this)">36</div>
+                <div class="size-option" onclick="selectOption(event, this)">37</div>
+                <div class="size-option selected" onclick="selectOption(event, this)">38</div>
+                <div class="size-option" onclick="selectOption(event, this)">39</div>
+                <div class="size-option" onclick="selectOption(event, this)">40</div>
+            </div>
+            <div class="option-title">Color</div>
+            <div class="color-options">
+                <div class="color-option selected" onclick="selectOption(event, this)">Black</div>
+                <div class="color-option" onclick="selectOption(event, this)">White</div>
+                <div class="color-option" onclick="selectOption(event, this)">Beige</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bundle-option" onclick="toggleBundle(this)">
+        <div class="bundle-header">
+            <div>
+                <span class="bundle-title">3 Pair</span>
+            </div>
+            <div class="bundle-price">DKK 528.00</div>
+        </div>
+        <div class="bundle-savings">60% OFF</div>
+        <div class="bundle-details">
+            <div class="option-title">Size</div>
+            <div class="size-options">
+                <div class="size-option" onclick="selectOption(event, this)">36</div>
+                <div class="size-option" onclick="selectOption(event, this)">37</div>
+                <div class="size-option" onclick="selectOption(event, this)">38</div>
+                <div class="size-option" onclick="selectOption(event, this)">39</div>
+                <div class="size-option" onclick="selectOption(event, this)">40</div>
+            </div>
+            <div class="option-title">Color</div>
+            <div class="color-options">
+                <div class="color-option" onclick="selectOption(event, this)">Black</div>
+                <div class="color-option" onclick="selectOption(event, this)">White</div>
+                <div class="color-option" onclick="selectOption(event, this)">Beige</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">Free 2 Day Shipping</div>
+    
+    <div class="total">Total: DKK 360.00</div>
+    
+    <button class="add-to-cart">+ Add to Cart</button>
+    
+    <div class="powered-by">Powered by Pamper</div>
+    
+    <script>
+        function toggleBundle(element) {
+            // Close all other bundles first
+            document.querySelectorAll('.bundle-option').forEach(bundle => {
+                if (bundle !== element) {
+                    bundle.classList.remove('active');
+                    bundle.querySelector('.bundle-details').style.maxHeight = '0';
+                }
+            });
+            
+            // Toggle the clicked bundle
+            element.classList.toggle('active');
+            const details = element.querySelector('.bundle-details');
+            if (element.classList.contains('active')) {
+                details.style.maxHeight = details.scrollHeight + 'px';
+            } else {
+                details.style.maxHeight = '0';
+            }
+        }
+        
+        function selectOption(event, element) {
+            // Stop event from bubbling up to the bundle container
+            event.stopPropagation();
+            
+            // Remove selected class from siblings
+            const parent = element.parentElement;
+            parent.querySelectorAll('.size-option, .color-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked element
+            element.classList.add('selected');
+        }
+        
+        // Initialize with the middle bundle expanded
+        document.addEventListener('DOMContentLoaded', function() {
+            const middleBundle = document.querySelectorAll('.bundle-option')[1];
+            const details = middleBundle.querySelector('.bundle-details');
+            details.style.maxHeight = details.scrollHeight + 'px';
+        });
+    </script>
+</body>
+</html>
